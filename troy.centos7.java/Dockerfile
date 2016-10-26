@@ -33,7 +33,10 @@ ENV BASH_ENV=/opt/app-root/etc/scl_enable \
 # Also setup the 'openshift' user that is used for the build execution and for the
 # application runtime execution.
 # TODO: Use better UID and GID values
-RUN yum install -y --setopt=tsflags=nodocs \
+RUN yum clean all && \
+    yum-config-manager --disable rhel* 1>/dev/null && \
+    yum-config-manager --enable centos-7-server-rpms && \
+  yum install -y --setopt=tsflags=nodocs \
   autoconf \
   automake \
   bsdtar \
